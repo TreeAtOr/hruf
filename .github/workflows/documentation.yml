@@ -33,7 +33,7 @@ jobs:
              test_directory
 
       - name: Perform action when test_directory changes
-        if: ! contains(steps.verify-changed-files.outputs.changed_files, 'test_directory')
+        if: ${{!contains(steps.verify-changed-files.outputs.changed_files, 'test_directory')}}
         run: exit 1
 
 
