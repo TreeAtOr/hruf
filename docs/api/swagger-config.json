@@ -1,0 +1,13 @@
+{
+  "urls": [
+    {
+      "name": "Boards",
+      "url": "docs/api/board-service-api"
+    },
+    {
+      "name": "Users",
+      "url": "docs/api/user-service-api"
+    }
+  ],
+  "plugins": ["topbar"]
+}
