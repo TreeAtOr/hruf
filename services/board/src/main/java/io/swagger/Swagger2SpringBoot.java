@@ -9,11 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 @EnableOpenApi
@@ -32,7 +32,7 @@ public class Swagger2SpringBoot implements CommandLineRunner {
     }
 
     @Configuration
-    static class CustomDateConfig extends WebMvcConfigurerAdapter {
+    static class CustomDateConfig extends WebMvcConfigurationSupport {
         @Override
         public void addFormatters(FormatterRegistry registry) {
             registry.addConverter(new LocalDateConverter("yyyy-MM-dd"));
