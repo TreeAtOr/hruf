@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: User Service
+  description: User service API specification
+  version: 0.0.1
+
+tags:
+  - name: auth
+    description: Paths for authorization
+  - name: profile
+    description: Paths for profile
+  - name: token
+
+security:
+  - bearerAuth: [] 
+
+paths:
+  /signin:
+    post:
+      tags: 
+        - auth
+      summary: Log in via password and login
+      description: Log in via password and login
+      requestBody:
+        description: Login using password and login
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: Successful Sign In
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access:
+                    type: string
+                  refresh:
+                    type: string
+        '400':
+          description: Missing fields
+        '401':
+          description: Unauthorized
+  /signup:
+    post:
+      tags:
+        - auth
+      summary: Sign up via password and login
+      description: Sign up via password and login
+      requestBody:
+        description: Login using password and login
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tokens'
+      responses:
+        '200':
+          description: Successful Sign Up
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  tokens:
+                    $ref: '#/components/schemas/Tokens'
+        '400':
+          description: Missing fields
+        '409':
+          description: User already exist
+        
+  /logout:
+    post:
+      tags:
+        - auth
+      summary: Invalidate refresh tokens
+      description: Invalidate refresh tokens
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  /refresh:
+    post:
+      tags:
+        - auth
+      summary: Refresh tokens
+      description: Invalidate refresh tokens
+      responses:
+        '200':
+          description: Successful Refresh
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokens'
+        '401':
+          description: Unauthorized
+      
+      
+components:
+  securitySchemes:
+    bearerAuth: 
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Profile:
+      type: object
+      properties: 
+        username:
+          type: string
+          example: "MegaUser3000"
+        bio:
+          type: string
+          example: "Users bio"
+        avatarUrl:
+          type: string
+          example: "https://example.com"
+    Tokens: 
+      required:
+        - access
+        - refresh
+      type: object
+      properties:
+        access:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyOTQ4NTYzNDY3MzQzNjU0In0.inBoWDUXGNns2hEil14zxWwKWDWaCWDQBAxhpxpBy2c"
+        refresh:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBvcmVzIjoxOTgzNTc0NDY1LCJpZCI6IjEyOTQ4NTYzNDY3MzQzNjU0Iiwic2FsdCI6IjEyMDM5OTQ0NDU1NjU2NzY3NjU0NDU0In0.GcyApuejCZqZQSR9XH-qNcRxTX-LlbFcoh-W6hL2AyM"

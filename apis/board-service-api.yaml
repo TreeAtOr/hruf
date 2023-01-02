@@ -1,0 +1,131 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Desc
+  license:
+    name: MIT
+  version: 0.0.1
+
+tags:
+  - name: board
+    description: Boards service API
+
+paths:
+  /board:
+    put:
+      tags:
+        - board
+      summary: Update board
+      description: Update board by unique board ID
+      operationId: updateBoard
+      requestBody:
+        description: desc
+        content:
+          board/json:
+            schema:
+              $ref: '#/components/schemas/updateBoard'
+        required: true
+      responses:
+        '200':
+          description: Update successful
+          content:
+            board/json:
+              schema:
+                $ref: '#/components/schemas/updateBoardResponse'
+        '400':
+          description: Update failed. Invalid board ID
+        '401':
+          description: Unauthorized
+        '404':
+          description: Update failed. Board not found.
+    post:
+      tags:
+        - board
+      summary: Add a new board
+      operationId: addBoard
+      requestBody:
+        content:
+          board/json:
+            schema:
+              $ref: '#/components/schemas/newBoard'
+        required: false
+      responses:
+        '200':
+          description: Board created successfully
+          content:
+            board/json:
+              schema:
+                $ref: '#/components/schemas/newBoardResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    updateBoard:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          example: '53hEH8shXxLmiVK8TwPaIqDqRfUQdqG2'
+        name:
+          type: string
+          example: 'Board Name'
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              userId:
+                type: integer
+                example: 'ZPPOzDLNOyzBgzEEdk5SkR1uVqYGyAkT'
+              privileges:
+                type: string
+                example: 'observer'
+    updateBoardResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '53hEH8shXxLmiVK8TwPaIqDqRfUQdqG2'
+
+    newBoard:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Board Name'
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              userId:
+                type: integer
+                example: 'ZPPOzDLNOyzBgzEEdk5SkR1uVqYGyAkT'
+              privileges:
+                type: string
+                example: 'observer'
+    newBoardResponse:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          example: '53hEH8shXxLmiVK8TwPaIqDqRfUQdqG2'
+        name:
+          type: string
+          example: 'Board Name'
+
+security:
+  - bearerAuth: []
+
