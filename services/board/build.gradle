@@ -1,22 +1,35 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.1'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java-library'
 }
 
 group = 'com.hruf'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+version = '0.0.1'
+description = 'board-service'
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
-	mavenCentral()
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    api 'org.springframework.boot:spring-boot-starter-web:3.0.1'
+    api 'org.springframework.boot:spring-boot-starter-tomcat:3.0.1'
+    api 'io.springfox:springfox-oas:3.0.0'
+    api 'io.springfox:springfox-swagger-ui:3.0.0'
+    api 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.12.5'
+    api 'javax.validation:validation-api:2.0.1.Final'
+    api 'org.springframework.plugin:spring-plugin-core:3.0.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.1'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
 }
