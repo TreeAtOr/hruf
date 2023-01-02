@@ -106,7 +106,7 @@ paths:
       
 components:
   securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
+    bearerAuth: 
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -117,6 +117,8 @@ components:
         username:
           type: string
           example: "MegaUser3000"
+        bio:
+          type: string
         avatarUrl:
           type: string
           example: "https://example.com"
