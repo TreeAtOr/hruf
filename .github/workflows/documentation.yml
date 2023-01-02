@@ -7,36 +7,17 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
+    paths:
+      - 'docs/api'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  check:
-    name: Check documentation files change
-    outputs:
-      run_job: ${{ steps.check_files.outputs.run_job }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-
-      - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v13
-        id: verify-changed-files
-        with:
-          files: |
-             docs/api
-
-      - name: Return error if docs/api is unchanged
-        if: contains(steps.verify-changed-files.outputs.changed_files, 'docs/api')
-        run: exit 0
-
   build:
     name: Build documentation
+    needs: paths-filter
     if: needs.check.outputs.run_job == 'true'
     runs-on: ubuntu-latest
     steps:
