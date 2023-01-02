@@ -7,8 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-    paths:
-      - 'docs/api/**'
+   # paths:
+   #   - 'docs/api/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,11 +19,14 @@ jobs:
     name: Build documentation
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Swagger UI
-        uses: Legion2/swagger-ui-action@v1
+      - name: Swagger ui action
+        id: swagger-ui-action
+        uses: pjoc-team/swagger-ui-action@v0.0.2
         with:
-          output: swagger-ui
-          spec-file: docs/api/swagger-config.json
+          dir: 'docs/api/'
+          pattern: '*.json'
+          debug: 'true'
+          spec-file: swagger-config.json
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
