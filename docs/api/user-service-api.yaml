@@ -119,6 +119,7 @@ components:
           example: "MegaUser3000"
         bio:
           type: string
+          example: "Users bio"
         avatarUrl:
           type: string
           example: "https://example.com"
