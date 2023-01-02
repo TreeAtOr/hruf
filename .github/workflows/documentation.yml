@@ -29,11 +29,10 @@ jobs:
         id: verify-changed-files
         with:
           files: |
-             new.txt
-             test_directory
+             docs/api
 
-      - name: Perform action when test_directory changes
-        if: ${{!contains(steps.verify-changed-files.outputs.changed_files, 'test_directory')}}
+      - name: Return error if docs/api is unchanged
+        if: ${{!contains(steps.verify-changed-files.outputs.changed_files, 'docs/api')}}
         run: exit 1
 
 
