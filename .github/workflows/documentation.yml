@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: pwd
-        run: ls /home/runner/work/hruf/
+        run: ls /home/runner/work/hruf/hruf
       - name: Swagger ui action
         id: swagger-ui-action
         uses: pjoc-team/swagger-ui-action@v0.0.2
