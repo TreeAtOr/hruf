@@ -117,7 +117,9 @@ components:
         username:
           type: string
           example: "MegaUser3000"
-        
+        avatarUrl:
+          type: string
+          example: "https://example.com"
     Tokens: 
       required:
         - access
