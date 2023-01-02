@@ -8,6 +8,7 @@ tags:
   - name: auth
     description: Paths for authorization
   - name: profile
+    description: Paths for profile
   - name: token
 
 security:
