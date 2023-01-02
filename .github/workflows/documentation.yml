@@ -17,8 +17,6 @@ on:
 jobs:
   build:
     name: Build documentation
-    needs: paths-filter
-    if: needs.check.outputs.run_job == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Generate Swagger UI
